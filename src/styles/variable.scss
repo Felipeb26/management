@@ -1,0 +1,24 @@
+:root {
+
+    --white-incomplete: #e5e5e5;
+
+    --black: #010a1c;
+    --blue: #013766;
+    --wine: #490009;
+    --red: #ac0e28;
+    --pink: #bc4558;
+    --cyan: #14d4d4;
+    --white: #f8f4f4;
+
+    //transparent colors
+    --blackT: #010a1c7a;
+    --blueT: #013766d8;
+    --wineT: #490009c5;
+    --redT: #ac0e28b7;
+    --pinkT: #bc4559ce;
+    --cyanT: #14d4d4b4;
+    --whiteT: #f8efef;
+
+    --shadowWine: 2px 0 var(--wine), -2px 0 var(--wine), 0 2px var(--wine), 0 -2px var(--wine),
+        1px 1px var(--wine), -1px -1px var(--wine), 1px -1px var(--wine), -1px 1px var(--wine);
+}

@@ -1,0 +1,25 @@
+@import url("./variable.scss");
+
+
+h1{
+    flex: 3;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+img,
+nav {
+    flex: 1;
+}
+
+header,
+a {
+    color: var(--cyan);
+    letter-spacing: 0.1rem;
+}
+
+h1,
+li,
+img {
+    filter: brightness(1.7);
+}

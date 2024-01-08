@@ -2,31 +2,44 @@ import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { Calendar } from "react-calendar";
 import "react-calendar/dist/Calendar.css";
+import { IoIosArrowDown } from "react-icons/io";
 import { useNavigate, useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 import { CustomButton } from "../components/button";
 import HeaderComponent from "../components/header";
 import Loading from "../components/loading";
 import { Actions, AlignItens, Card, Input } from "../components/style/styled";
+import { Select, SelectContainer } from "../components/style/styled.select";
 import { dates } from "../interfaces/date.interface";
-import { findEmployeeById } from "../utils/axios.requests.util";
+import {
+	findAllDepartments,
+	findEmployeeById,
+} from "../utils/axios.requests.util";
+
 
 export default function EmployeeComponent() {
 	const { id } = useParams();
 	const navigate = useNavigate();
+	const _id = id == undefined ? "" : id;
+
 	const { data, error, isLoading } = useQuery({
 		queryKey: ["employee"],
 		queryFn: () => findEmployeeById(_id),
 	});
 	if (error) navigate("/");
 
-	const _id = id == undefined ? "" : id;
+	const { data: departments, error: departError } = useQuery({
+		queryKey: ["departments"],
+		queryFn: findAllDepartments,
+	});
 
+	toast.error(departError?.message);
 	const [date, setDate] = useState(toDate(data?.birth_date) || today());
 	const [showCalendar, setShowCalendar] = useState(false);
 
-	function changeDate(selectedDate: unknown) {
+	const changeDate = (selectedDate: unknown) => {
 		setDate(formatCalendarDate(selectedDate));
-	}
+	};
 
 	return (
 		<>
@@ -79,6 +92,20 @@ export default function EmployeeComponent() {
 						onChange={changeDate}
 					/>
 				)}
+				<AlignItens>
+					<label>Departamento:</label>
+					<SelectContainer>
+						<Select>
+							<option>{data?.department}</option>
+							{departments
+								?.filter((it) => it.name !== data?.department)
+								.map((obj, id) => {
+									return <option key={id}>{obj.name}</option>;
+								})}
+						</Select>
+						<IoIosArrowDown/>
+					</SelectContainer>
+				</AlignItens>
 				<Actions>
 					<CustomButton func={() => {}}>confirmar</CustomButton>
 					<CustomButton func={() => {}}>limpar</CustomButton>

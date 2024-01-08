@@ -56,10 +56,3 @@ export const Input = styled.input`
 	border: none;
 	width: 75%;
 `;
-
-// export const InputDisable = styled.input`
-// 	outline: none;
-// 	border: none;
-// 	width: 75%;
-// 	pointer-events: none;
-// `;

@@ -1,10 +1,14 @@
 export interface EmployeeModel {
-	birth_date: string;
-	create_at: string;
-	department: string;
-	email: string;
+	_id?: string;
 	name: string;
 	surname: string;
-	update_at: string;
-	_id: string;
+	email: string;
+	birth_date: string;
+	department: string;
+	create_at?: string;
+	update_at?: string;
 }
+
+export const EmployeeBuild = (data: EmployeeModel) => {
+	return data;
+};

@@ -1,7 +1,8 @@
 import { Button } from "./style/styled.button";
 
 interface BtnProps {
-	func: () => unknown;
+	style?: React.CSSProperties ;
+	func?: () => unknown;
 	type?: "button" | "submit" | "reset";
 	children?: React.ReactNode;
 }
@@ -9,7 +10,7 @@ interface BtnProps {
 export const CustomButton = (props: BtnProps) => {
 	return (
 		<>
-			<Button type={props.type} onClick={() => props.func()}>
+			<Button style={props.style} type={props.type} onClick={props.func}>
 				{props.children}
 			</Button>
 		</>

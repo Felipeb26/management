@@ -35,7 +35,6 @@ export const Actions = styled.div`
 	margin: 0.8rem 0.5rem 0 0.5rem;
 	display: flex;
 	flex-direction: row;
-	justify-content: space-around;
 `;
 
 export const AlignItens = styled.div`
@@ -46,6 +45,7 @@ export const AlignItens = styled.div`
 	padding: 0.3rem;
 	margin: 0.3rem 0;
 	border-radius: 0.5rem;
+	min-width: 300px;
 	& * {
 		padding: 0.2rem;
 	}

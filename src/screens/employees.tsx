@@ -1,10 +1,15 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-hooks/rules-of-hooks */
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
+import { FaPlus } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { CustomButton } from "../components/button";
+import { CustomForm } from "../components/form";
 import HeaderComponent from "../components/header";
 import Loading from "../components/loading";
+import ModalComponent from "../components/modal";
 import PopUp from "../components/popup";
 import {
 	Actions,
@@ -12,13 +17,21 @@ import {
 	Card,
 	SpaceAroundDiv,
 } from "../components/style/styled";
+import { EmployeeModel } from "../model/employee.model";
 import { Props } from "../model/function.props";
-import { deleteEmployee, findAllEmployee } from "../utils/axios.requests.util";
-import { useNavigate } from "react-router-dom";
+import {
+	deleteEmployee,
+	findAllEmployee,
+	saveEmployee,
+} from "../utils/axios.requests.util";
 
 export default function EmployeesComponent() {
 	const navigate = useNavigate();
 	const [openPopup, setOpenPopup] = useState(false);
+	const [id, setId] = useState("");
+	const [openModal, setOpenModal] = useState(true);
+	const [employee, setEmployee] = useState<EmployeeModel>();
+
 	const {
 		data: employees,
 		error,
@@ -27,12 +40,60 @@ export default function EmployeesComponent() {
 		queryKey: ["employees"],
 		queryFn: findAllEmployee,
 	});
-	const [id, setId] = useState("");
+
+	const {
+		data: deleteMessage,
+		error: deleteError,
+		refetch,
+	} = useQuery({
+		queryKey: ["deleteOne"],
+		queryFn: () => deleteEmployee(id),
+		enabled: false,
+	});
+
+	
+	const saveBody = async (body:EmployeeModel) => {
+		return saveEmployee(body);
+	}
+
+	const { error: saveError, refetch: save } = useQuery({
+		queryKey: ["save", employee],
+		queryFn: () => saveEmployee(employee),
+		enabled: false,
+		retry: false,
+	});
+	toast.error(saveError?.message);
+
+	toast.error(error?.message);
+	toast.success(deleteMessage?.message);
+	toast.error(deleteError?.message);
+
+	const handleClick = async (data: any) => {
+		const body = {
+			name: data.name,
+			surname: data.surname,
+			email: data.email,
+			birth_date: formatDate(data.birth_date),
+			department: data.department,
+		};
+		console.log(body);
+		setEmployee(body);
+		await save(["",body]);
+	};
 
 	return (
 		<>
 			<Loading show={isLoading} />
 			<HeaderComponent />
+			<CustomButton
+				style={{ margin: "0 0 0 3rem" }}
+				func={() => setOpenModal(!openModal)}
+			>
+				<FaPlus />
+			</CustomButton>
+			<ModalComponent open={openModal} chooseState={setOpenModal}>
+				<CustomForm onSubmit={handleClick} />
+			</ModalComponent>
 			<BodyCards>
 				{error && toast(error.message)}
 
@@ -51,7 +112,8 @@ export default function EmployeesComponent() {
 								btn_children={"x"}
 							>
 								{popupContent({
-									function: () => setOpenPopup(!openPopup),
+									closeFn: () => setOpenPopup(!openPopup),
+									function: refetch,
 									params: [id],
 								})}
 							</PopUp>
@@ -66,7 +128,11 @@ export default function EmployeesComponent() {
 								</CustomButton>
 								<CustomButton
 									func={() => {
-										setOpenPopup(true), setId(value._id);
+										setOpenPopup(true),
+											setId(
+												value._id ||
+													Math.random().toFixed()
+											);
 									}}
 								>
 									deletar
@@ -87,64 +153,14 @@ const popupContent = (props: Props) => {
 			<h1>tem certeza?</h1>
 
 			<SpaceAroundDiv>
-				<CustomButton func={props.function}>cancelar!</CustomButton>
-				<CustomButton func={() => requestDelete(props.params)}>
-					confirmar!
-				</CustomButton>
+				<CustomButton func={props.closeFn}>cancelar!</CustomButton>
+				<CustomButton func={props.function}>confirmar!</CustomButton>
 			</SpaceAroundDiv>
 		</>
 	);
 };
 
-// function modalContent(props: UpdateEmployee) {
-// 	const value = props.employee;
-
-// 	const { data, error, isLoading } = useQuery({
-// 		queryKey: ["departments"],
-// 		queryFn: findAllDepartments,
-// 	});
-
-// 	return (
-// 		<>
-// 			<AlignItens>
-// 				<label htmlFor="name">nome:</label>
-// 				<Input type="text" placeholder={value.name} id="name" />
-// 			</AlignItens>
-// 			<AlignItens>
-// 				<label htmlFor="sobrenome">Sobrenome:</label>
-// 				<Input type="text" placeholder={value.surname} id="sobrenome" />
-// 			</AlignItens>
-// 			<AlignItens>
-// 				<label htmlFor="email">email:</label>
-// 				<Input type="email" placeholder={value.email} id="email" />
-// 			</AlignItens>
-
-// 			<select>
-// 				{data?.map((obj, id) => {
-// 					return <option key={id}>{obj.name}</option>;
-// 				})}
-// 			</select>
-
-// 			<SpaceAroundDiv>
-// 				<CustomButton func={props.function}>cancelar!</CustomButton>
-// 				<CustomButton func={() => {}}>confirmar!</CustomButton>
-// 			</SpaceAroundDiv>
-// 		</>
-// 	);
-// }
-
-function requestDelete(id: string | string[] | undefined) {
-	if (id === undefined) return;
-
-	if (id instanceof Array) {
-		id = id[0];
-	}
-	const _id = id;
-	const { data, error } = useQuery({
-		queryKey: ["deleteOne"],
-		queryFn: () => deleteEmployee(_id),
-	});
-
-	toast.success(data?.message);
-	toast.error(error?.message);
-}
+const formatDate = (value: string) => {
+	const values = value.split("-");
+	return `${values[2]}/${values[1]}/${values[0]}`;
+};

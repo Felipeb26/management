@@ -7,8 +7,6 @@ export const SelectContainer = styled.div`
 	flex-wrap: nowrap;
 	height: 1.5rem;
 	border-radius: 0.3rem;
-	/* border: 0.5px solid var(--pink); */
-	box-shadow: 0 0 0.3rem var(--black);
 
 	& svg {
 		font-size: 2rem;
@@ -24,7 +22,7 @@ export const Select = styled.select`
 	color: var(--black);
 	font-weight: bold;
 	letter-spacing: 0.1rem;
-
+	background: transparent;
 
 	& option {
         background: var(--pink);

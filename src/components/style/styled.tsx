@@ -24,7 +24,6 @@ export const Card = styled.div`
 	min-height: 12rem;
 	justify-content: space-around;
 	margin: 0.2rem;
-	text-transform: capitalize;
 
 	& span {
 		margin: 0.1rem;
@@ -43,16 +42,25 @@ export const AlignItens = styled.div`
 	flex-direction: row;
 	box-shadow: 0 0 0.5rem var(--wine);
 	padding: 0.3rem;
-	margin: 0.3rem 0;
+	margin: 0.6rem 0;
 	border-radius: 0.5rem;
 	min-width: 300px;
+	color: var(--black);
+	align-items: center;
+
 	& * {
 		padding: 0.2rem;
+	}
+	& :nth-child(1){
+		text-transform: capitalize;
 	}
 `;
 
 export const Input = styled.input`
 	outline: none;
 	border: none;
-	width: 75%;
+	width: 90%;
+	background: transparent;
+	color: var(--black);
+	margin: 0 0 0 2rem;
 `;

@@ -25,8 +25,8 @@ export const Select = styled.select`
 	background: transparent;
 
 	& option {
-        background: var(--pink);
-		color: var(--black);
+        background: var(--wine);
+		color: var(--white);
 		font-weight: 500;
 	}
 

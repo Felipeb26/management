@@ -13,11 +13,12 @@ import ModalComponent from "../components/modal";
 import PopUp from "../components/popup";
 import {
 	Actions,
+	AlignItens,
 	BodyCards,
 	Card,
 	SpaceAroundDiv,
 } from "../components/style/styled";
-import { EmployeeModel } from "../model/employee.model";
+import { Each } from "../hooks/each";
 import { Props } from "../model/function.props";
 import {
 	deleteEmployee,
@@ -25,20 +26,23 @@ import {
 	saveEmployee,
 } from "../utils/axios.requests.util";
 
+const removeShadow = { boxShadow: "none", margin: "0.1rem 0" };
+
 export default function EmployeesComponent() {
 	const navigate = useNavigate();
-	const [openPopup, setOpenPopup] = useState(false);
 	const [id, setId] = useState("");
-	const [openModal, setOpenModal] = useState(true);
-	const [employee, setEmployee] = useState<EmployeeModel>();
+	const [openPopup, setOpenPopup] = useState(false);
+	const [openModal, setOpenModal] = useState(false);
 
 	const {
 		data: employees,
 		error,
 		isLoading,
+		refetch: findAll,
 	} = useQuery({
 		queryKey: ["employees"],
 		queryFn: findAllEmployee,
+		retry: false,
 	});
 
 	const {
@@ -50,19 +54,6 @@ export default function EmployeesComponent() {
 		queryFn: () => deleteEmployee(id),
 		enabled: false,
 	});
-
-	
-	const saveBody = async (body:EmployeeModel) => {
-		return saveEmployee(body);
-	}
-
-	const { error: saveError, refetch: save } = useQuery({
-		queryKey: ["save", employee],
-		queryFn: () => saveEmployee(employee),
-		enabled: false,
-		retry: false,
-	});
-	toast.error(saveError?.message);
 
 	toast.error(error?.message);
 	toast.success(deleteMessage?.message);
@@ -76,9 +67,13 @@ export default function EmployeesComponent() {
 			birth_date: formatDate(data.birth_date),
 			department: data.department,
 		};
-		console.log(body);
-		setEmployee(body);
-		await save(["",body]);
+		saveEmployee(body)
+			.then((data) => {
+				findAll();
+				setOpenModal(false);
+				toast.success(`usuario ${data.name} salvo com sucesso`);
+			})
+			.catch((err: Error) => toast.error(err.message));
 	};
 
 	return (
@@ -96,15 +91,31 @@ export default function EmployeesComponent() {
 			</ModalComponent>
 			<BodyCards>
 				{error && toast(error.message)}
-
-				{employees?.map((value, index) => {
-					return (
+				<Each
+					of={employees}
+					render={(value, index) => (
 						<Card key={index}>
-							<span>nome: {value.name}</span>
-							<span>sobrenome: {value.surname}</span>
-							<span>email: {value.email}</span>
-							<span>departamento: {value.department}</span>
-							<span>data de nascimento: {value.birth_date}</span>
+							<AlignItens style={removeShadow}>
+								<span>nome:</span>
+								<p>{value.name}</p>
+							</AlignItens>
+							<AlignItens style={removeShadow}>
+								<span>sobrenome:</span>
+								<p>{value.surname}</p>
+							</AlignItens>
+							<AlignItens style={removeShadow}>
+								<span>email:</span>
+								<p>{value.email}</p>
+							</AlignItens>
+							<AlignItens style={removeShadow}>
+								<span>nascimento:</span>
+								<p>{value.birth_date}</p>
+							</AlignItens>
+
+							<AlignItens style={removeShadow}>
+								<span>departamento</span>
+								<p>{value.department}</p>
+							</AlignItens>
 
 							<PopUp
 								open={openPopup}
@@ -120,6 +131,7 @@ export default function EmployeesComponent() {
 
 							<Actions>
 								<CustomButton
+									style={{ margin: "0 0.5rem", flex: 1 }}
 									func={() =>
 										navigate(`/employee/${value._id}`)
 									}
@@ -127,6 +139,7 @@ export default function EmployeesComponent() {
 									editar
 								</CustomButton>
 								<CustomButton
+									style={{ margin: "0 0.5rem", flex: 1 }}
 									func={() => {
 										setOpenPopup(true),
 											setId(
@@ -139,8 +152,8 @@ export default function EmployeesComponent() {
 								</CustomButton>
 							</Actions>
 						</Card>
-					);
-				})}
+					)}
+				/>
 			</BodyCards>
 		</>
 	);

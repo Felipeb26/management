@@ -9,6 +9,7 @@ import queryClient from "./utils/queryClient.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
 	<>
+		{setTheme()}
 		<QueryClientProvider client={queryClient}>
 			<ToastContainer
 				position="top-right"
@@ -22,3 +23,10 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
 	</>
 );
 //TODO descobrir para que serve o React.StrictMode
+function setTheme() {
+	const body = document.querySelector("body");
+	body?.setAttribute("data-theme", "light");
+	if(body){
+		body.style.background = "var(--white)"
+	}
+}

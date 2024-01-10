@@ -29,6 +29,7 @@ export default function EmployeeComponent() {
 						data={data}
 						onSubmit={RequestUpdate}
 						style_card={style_card}
+						updateForm={true}
 					/>
 				</Card>
 			)}
@@ -49,14 +50,13 @@ function RequestUpdate(_id: string, data: any) {
 		create_at: data.create_at,
 		update_at: data.update_at,
 	});
-	const {
-		data: res,
-		error: updateError,
-		isLoading: loading,
-	} = useQuery({
-		queryKey: ["updateEmployee"],
-		queryFn: () => updateEmployee(_id, body),
-	});
-
-	return { res, updateError, loading };
+	console.log(_id, "id");
+	updateEmployee(_id, body)
+		.then((data) => {
+			console.log(data);
+			toast.success(`Usuario ${data.name} atualizado com sucesso`);
+		})
+		.catch((err: Error) => {
+			console.log(err);
+		});
 }

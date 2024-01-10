@@ -1,6 +1,7 @@
 :root {
 
     --white-incomplete: #e5e5e5;
+    --loading: rgba(0, 0, 0, 0.473);
 
     --black: #010a1c;
     --blue: #013766;
@@ -9,6 +10,7 @@
     --pink: #bc4558;
     --cyan: #14d4d4;
     --white: #f8f4f4;
+    --yellow: #ffff41;
 
     //transparent colors
     --blackT: #010a1c7a;
@@ -18,7 +20,24 @@
     --pinkT: #bc4559ce;
     --cyanT: #14d4d4b4;
     --whiteT: #f8efef;
+    --yellowT: rgba(255, 255, 65, 0.705);
 
     --shadowWine: 2px 0 var(--wine), -2px 0 var(--wine), 0 2px var(--wine), 0 -2px var(--wine),
         1px 1px var(--wine), -1px -1px var(--wine), 1px -1px var(--wine), -1px 1px var(--wine);
+}
+
+[data-theme="dark"] {
+    --white-incomplete: #252525be;
+    --loading: rgba(122, 121, 121, 0.473);
+
+    --black: #f8f4f4;
+    --blue: rgb(58, 165, 252);
+    --wine: #e43a57;
+    --red: #ff3048;
+    --pink: #010a1c;
+    --cyan: rgb(0, 255, 255);
+    --white: rgba(37, 37, 37, 0.897);
+    --yellow: rgb(255, 255, 50);
+    
+    --blueT: #37a1ff;
 }

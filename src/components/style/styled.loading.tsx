@@ -12,7 +12,7 @@ export const Back = styled.div`
 	left: 0;
 	width: 100%;
 	height: 100vh;
-	background: rgba(0, 0, 0, 0.473);
+	background: var(--loading);
 	display: flex;
 	justify-content: center;
 	align-items: center;

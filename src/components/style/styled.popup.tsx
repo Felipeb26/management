@@ -19,10 +19,11 @@ export const InnerPopup = styled.div`
 	padding: 1.5rem;
 	width: 100%;
 	max-width: 640px;
-	background: white;
-	box-shadow: 0 0 0.8rem var(--pink);
+	background: var(--white);
+	box-shadow: 0 0 0.8rem var(--blue);
 	display: flex;
 	flex-direction: column;
+	color: var(--black);
 `;
 
 export const ButtonDiv = styled.div`
@@ -46,7 +47,7 @@ export const Button = styled.button`
 	white-space: nowrap;
 	overflow: hidden;
 	max-width: 100%;
-	color: var(--white);
+	color: var(--black);
 
 	&:hover {
 		box-shadow: 0 0 0.5rem var(--wine);

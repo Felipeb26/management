@@ -13,6 +13,7 @@ type FormProps = {
 	data?: EmployeeModel;
 	onSubmit: (...value: any) => any;
 	style_card?: React.CSSProperties | undefined;
+	updateForm?: boolean;
 };
 
 export const CustomForm = (props: FormProps) => {
@@ -61,8 +62,8 @@ export const CustomForm = (props: FormProps) => {
 				<label htmlFor="nascimento">Nascimento:</label>
 				<Input
 					id="nascimento"
-					placeholder={data?.birth_date}
-					value={formatStringToDate(data?.birth_date)}
+					placeholder={formatStringToDate(data?.birth_date)}
+					// value={formatStringToDate(data?.birth_date)}
 					type="date"
 					{...register("birth_date")}
 				/>
@@ -82,12 +83,24 @@ export const CustomForm = (props: FormProps) => {
 				</SelectContainer>
 			</AlignItens>
 			<Actions>
-				<CustomButton
-					style={{ margin: "0 1rem", flex: 1 }}
-					func={handleSubmit(props.onSubmit)}
-				>
-					confirmar
-				</CustomButton>
+				{props.updateForm && (
+					<CustomButton
+						style={{ margin: "0 1rem", flex: 1 }}
+						func={handleSubmit((it) =>
+							props.onSubmit(data?._id, it)
+						)}
+					>
+						confirmar
+					</CustomButton>
+				)}
+				{!props.updateForm && (
+					<CustomButton
+						style={{ margin: "0 1rem", flex: 1 }}
+						func={handleSubmit(props.onSubmit)}
+					>
+						confirmar
+					</CustomButton>
+				)}
 				<CustomButton
 					style={{ margin: "0 1rem", flex: 1 }}
 					func={() => {}}

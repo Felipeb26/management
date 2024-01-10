@@ -1,4 +1,3 @@
-import { QueryFunction, useQuery } from "@tanstack/react-query";
 import { Departments } from "../model/departments";
 import { EmployeeModel } from "../model/employee.model";
 import { Message } from "../model/message.model";
@@ -24,17 +23,10 @@ export const findAllDepartments = async () => {
 };
 
 export const saveEmployee = async (body: EmployeeModel) => {
-	const response = await EmployeeInstance.post("", body);
+	const response = await EmployeeInstance.post<EmployeeModel>("", body);
 	return response.data;
 };
 export const updateEmployee = async (_id: string, body: EmployeeModel) => {
-	const response = await EmployeeInstance.post(_id, body);
+	const response = await EmployeeInstance.put<EmployeeModel>(_id, body);
 	return response.data;
 };
-
-export function GlobalRequest(key: string, query: QueryFunction) {
-	return useQuery({
-		queryKey: [key],
-		queryFn: query,
-	});
-}

@@ -26,8 +26,6 @@ import {
 	saveEmployee,
 } from "../utils/axios.requests.util";
 
-const removeShadow = { boxShadow: "none", margin: "0.1rem 0" };
-
 export default function EmployeesComponent() {
 	const navigate = useNavigate();
 	const [id, setId] = useState("");
@@ -95,24 +93,24 @@ export default function EmployeesComponent() {
 					of={employees}
 					render={(value, index) => (
 						<Card key={index}>
-							<AlignItens style={removeShadow}>
+							<AlignItens>
 								<span>nome:</span>
 								<p>{value.name}</p>
 							</AlignItens>
-							<AlignItens style={removeShadow}>
+							<AlignItens>
 								<span>sobrenome:</span>
 								<p>{value.surname}</p>
 							</AlignItens>
-							<AlignItens style={removeShadow}>
+							<AlignItens>
 								<span>email:</span>
 								<p>{value.email}</p>
 							</AlignItens>
-							<AlignItens style={removeShadow}>
+							<AlignItens>
 								<span>nascimento:</span>
 								<p>{value.birth_date}</p>
 							</AlignItens>
 
-							<AlignItens style={removeShadow}>
+							<AlignItens>
 								<span>departamento</span>
 								<p>{value.department}</p>
 							</AlignItens>

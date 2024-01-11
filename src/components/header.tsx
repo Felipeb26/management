@@ -1,10 +1,21 @@
 import { useState } from "react";
-import { FaRegSun } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { ToastItem, toast } from "react-toastify";
 import logo from "../assets/logo.png";
-import { Header, Img, Li, Nav, Ul } from "../components/style/styled.header";
+import {
+	H1,
+	Hamburguer,
+	Header,
+	Img,
+	Li,
+	Nav,
+	Ul,
+} from "../components/style/styled.header";
 import "../styles/header.scss";
+import { FaRegMoon, FaRegSun } from "react-icons/fa";
+import { CiMenuBurger } from "react-icons/ci";
+import { IoCloseSharp } from "react-icons/io5";
+import "./header.scss"
 
 export default function HeaderComponent() {
 	toast.onChange((payload: ToastItem) => {
@@ -13,7 +24,10 @@ export default function HeaderComponent() {
 		}
 	});
 
+	const [menuOpen, setMenuOpen] = useState(false);
 	const [theme, setTheme] = useState(false);
+	const moon = <FaRegMoon />;
+	const sun = <FaRegSun />;
 
 	function startTheme() {
 		const isDark = localStorage.getItem("data-theme");
@@ -39,7 +53,38 @@ export default function HeaderComponent() {
 				<Link to="/">
 					<Img src={logo} alt="imagem logo" />
 				</Link>
-				<h1>management</h1>
+				<H1>management</H1>
+				<Hamburguer>
+					{menuOpen && <IoCloseSharp />}
+					{!menuOpen && <CiMenuBurger />}
+					<div>
+						<ul>
+							<Li>
+								<Link to="/">login</Link>
+							</Li>
+							<Li>
+								<Link to="/employees">employees</Link>
+							</Li>
+							<Li>
+								<Link to="/contato">contato</Link>
+							</Li>
+							<Li>
+								<Link to="#">about</Link>
+							</Li>
+							<Li>
+								<span
+									onClick={() => {
+										setTheme(!theme);
+										toggleTheme();
+									}}
+								>
+									{theme && sun}
+									{!theme && moon}
+								</span>
+							</Li>
+						</ul>
+					</div>
+				</Hamburguer>
 				<Nav>
 					<Ul>
 						<Li>
@@ -61,7 +106,8 @@ export default function HeaderComponent() {
 									toggleTheme();
 								}}
 							>
-								<FaRegSun />
+								{theme && sun}
+								{!theme && moon}
 							</span>
 						</Li>
 					</Ul>

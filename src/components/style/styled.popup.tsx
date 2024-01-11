@@ -48,6 +48,7 @@ export const Button = styled.button`
 	overflow: hidden;
 	max-width: 100%;
 	color: var(--black);
+	transition: all ease-in-out 0.3s;
 
 	&:hover {
 		box-shadow: 0 0 0.5rem var(--wine);

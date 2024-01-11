@@ -28,7 +28,7 @@ export const CustomForm = (props: FormProps) => {
 
 	return (
 		<>
-			<AlignItens>
+			<AlignItens style={props.style_card}>
 				<label htmlFor="name">Name:</label>
 				<Input
 					type="text"
@@ -38,7 +38,7 @@ export const CustomForm = (props: FormProps) => {
 					{...register("name")}
 				/>
 			</AlignItens>
-			<AlignItens>
+			<AlignItens style={props.style_card}>
 				<label htmlFor="sobrenome">Sobrenome:</label>
 				<Input
 					type="text"
@@ -48,7 +48,7 @@ export const CustomForm = (props: FormProps) => {
 					{...register("surname")}
 				/>
 			</AlignItens>
-			<AlignItens>
+			<AlignItens style={props.style_card}>
 				<label htmlFor="email">Email:</label>
 				<Input
 					type="email"
@@ -58,17 +58,16 @@ export const CustomForm = (props: FormProps) => {
 					{...register("email")}
 				/>
 			</AlignItens>
-			<AlignItens>
+			<AlignItens style={props.style_card}>
 				<label htmlFor="nascimento">Nascimento:</label>
 				<Input
 					id="nascimento"
 					placeholder={formatStringToDate(data?.birth_date)}
-					// value={formatStringToDate(data?.birth_date)}
 					type="date"
 					{...register("birth_date")}
 				/>
 			</AlignItens>
-			<AlignItens>
+			<AlignItens style={props.style_card}>
 				<label>Departamento:</label>
 				<SelectContainer>
 					<Select {...register("department")}>
@@ -87,7 +86,7 @@ export const CustomForm = (props: FormProps) => {
 					<CustomButton
 						style={{ margin: "0 1rem", flex: 1 }}
 						func={handleSubmit((it) =>
-							props.onSubmit(data?._id, it)
+							props.onSubmit(data?._id, it, data)
 						)}
 					>
 						confirmar

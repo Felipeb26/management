@@ -9,7 +9,7 @@
     --red: #ac0e28;
     --pink: #bc4558;
     --cyan: #14d4d4;
-    --white: #f8f4f4;
+    --white: #e7e7e7;
     --yellow: #ffff41;
 
     //transparent colors
@@ -28,10 +28,10 @@
 
 [data-theme="dark"] {
     --white-incomplete: #252525be;
-    --loading: rgba(122, 121, 121, 0.473);
+    --loading: rgba(202, 194, 194, 0.473);
 
     --black: #f8f4f4;
-    --blue: rgb(58, 165, 252);
+    --blue: #010a1c;
     --wine: #e43a57;
     --red: #ff3048;
     --pink: #010a1c;
@@ -39,5 +39,5 @@
     --white: rgba(37, 37, 37, 0.897);
     --yellow: rgb(255, 255, 50);
     
-    --blueT: #37a1ff;
+    --blueT: #010a1c;
 }

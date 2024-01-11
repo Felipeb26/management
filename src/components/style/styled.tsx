@@ -40,18 +40,15 @@ export const AlignItens = styled.div`
 	display: flex;
 	flex-wrap: nowrap;
 	flex-direction: row;
-	box-shadow: 0 0 0.5rem var(--wine);
 	padding: 0.3rem;
 	margin: 0.6rem 0;
 	border-radius: 0.5rem;
 	min-width: 300px;
 	color: var(--black);
 	align-items: center;
+	justify-content: space-between;
 
-	& * {
-		padding: 0.2rem;
-	}
-	& :nth-child(1){
+	& :nth-child(1) {
 		text-transform: capitalize;
 	}
 `;
@@ -63,4 +60,10 @@ export const Input = styled.input`
 	background: transparent;
 	color: var(--black);
 	margin: 0 0 0 2rem;
+`;
+
+export const H1 = styled.h1`
+	text-align: center;
+	text-transform: lowercase;
+	text-decoration: underline;
 `;

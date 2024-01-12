@@ -12,14 +12,20 @@ import HeaderComponent from "../components/header";
 
 const Router = createBrowserRouter(
 	createRoutesFromElements(
-		<Route path="/" element={<HeaderComponent />}>
+		<Route path="/management/" element={<HeaderComponent />}>
 			<Route index element={<Home />} />
-			<Route path="employee/:id" element={<EmployeeComponent />} />
-			<Route path="employees" element={<EmployeesComponent />} />
-			<Route path="contato" element={<ContatosComponent />} />
+			<Route
+				path="/management/employee/:id"
+				element={<EmployeeComponent />}
+			/>
+			<Route
+				path="/management/employees"
+				element={<EmployeesComponent />}
+			/>
+			<Route path="/management/contato" element={<ContatosComponent />} />
 			<Route path="*" element={<ErrorScreen />} />
 		</Route>
-	),
+	)
 );
 
 export default Router;

@@ -1,5 +1,8 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { CiMenuBurger } from "react-icons/ci";
+import { FaRegMoon, FaRegSun } from "react-icons/fa";
+import { IoCloseSharp } from "react-icons/io5";
+import { NavLink, Outlet } from "react-router-dom";
 import { ToastItem, toast } from "react-toastify";
 import logo from "../assets/logo.png";
 import {
@@ -9,23 +12,20 @@ import {
 	Img,
 	Li,
 	Nav,
-	Ul,
+	Ul
 } from "../components/style/styled.header";
 import "../styles/header.scss";
-import { FaRegMoon, FaRegSun } from "react-icons/fa";
-import { CiMenuBurger } from "react-icons/ci";
-import { IoCloseSharp } from "react-icons/io5";
-import "./header.scss"
 
 export default function HeaderComponent() {
 	toast.onChange((payload: ToastItem) => {
 		if (payload.type && payload.type.startsWith("success")) {
-			setTimeout(() => location.reload(), 15000);
+			setTimeout(() => location.reload(), 8000);
 		}
 	});
 
 	const [menuOpen, setMenuOpen] = useState(false);
 	const [theme, setTheme] = useState(false);
+	const [style, setStyle] = useState<React.CSSProperties>();
 	const moon = <FaRegMoon />;
 	const sun = <FaRegSun />;
 
@@ -50,54 +50,74 @@ export default function HeaderComponent() {
 		<>
 			{startTheme()}
 			<Header>
-				<Link to="/">
+				<NavLink to="/">
 					<Img src={logo} alt="imagem logo" />
-				</Link>
+				</NavLink>
 				<H1>management</H1>
-				<Hamburguer>
-					{menuOpen && <IoCloseSharp />}
-					{!menuOpen && <CiMenuBurger />}
-					<div>
-						<ul>
-							<Li>
-								<Link to="/">login</Link>
-							</Li>
-							<Li>
-								<Link to="/employees">employees</Link>
-							</Li>
-							<Li>
-								<Link to="/contato">contato</Link>
-							</Li>
-							<Li>
-								<Link to="#">about</Link>
-							</Li>
-							<Li>
-								<span
-									onClick={() => {
-										setTheme(!theme);
-										toggleTheme();
-									}}
-								>
-									{theme && sun}
-									{!theme && moon}
-								</span>
-							</Li>
-						</ul>
-					</div>
+				<Hamburguer style={style}>
+					{menuOpen && (
+						<span
+							onClick={() => {
+								setMenuOpen(!menuOpen);
+								setStyle({ padding: "0" });
+							}}
+						>
+							<IoCloseSharp />
+						</span>
+					)}
+					{!menuOpen && (
+						<span
+							onClick={() => {
+								setMenuOpen(!menuOpen);
+								setStyle({ top: "5rem", padding: "0 0.5rem" });
+							}}
+						>
+							<CiMenuBurger />
+						</span>
+					)}
+					{menuOpen && (
+						<div>
+							<ul>
+								<Li>
+									<NavLink to="/">login</NavLink>
+								</Li>
+								<Li>
+									<NavLink to="/employees">employees</NavLink>
+								</Li>
+								<Li>
+									<NavLink to="/contato">contato</NavLink>
+								</Li>
+								<Li>
+									<NavLink to="#">about</NavLink>
+								</Li>
+								<Li>
+									<span
+										onClick={() => {
+											setTheme(!theme);
+											toggleTheme();
+										}}
+									>
+										{theme && sun}
+										{!theme && moon}
+									</span>
+								</Li>
+							</ul>
+						</div>
+					)}
 				</Hamburguer>
 				<Nav>
 					<Ul>
 						<Li>
-							<Link to="/">login</Link>
+							<NavLink to="/">login</NavLink>
 						</Li>
 						<Li>
-							<Link to="/employees">employees</Link>
+							<NavLink to="/employees">employees</NavLink>
 						</Li>
 						<Li>
-							<Link to="/contato">contato</Link>
+							<NavLink to="/contato">contato</NavLink>
 						</Li>
 						<Li>
-							<Link to="#">about</Link>
+							<NavLink to="#">about</NavLink>
 						</Li>
 						<Li>
 							<span
@@ -113,6 +133,10 @@ export default function HeaderComponent() {
 					</Ul>
 				</Nav>
 			</Header>
+
+			<main>
+				<Outlet />
+			</main>
 		</>
 	);
 }

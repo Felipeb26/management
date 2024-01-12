@@ -7,6 +7,8 @@ export const SelectContainer = styled.div`
 	flex-wrap: nowrap;
 	height: 1.5rem;
 	border-radius: 0.3rem;
+	width: 90%;
+	margin: 0 0.5rem;
 
 	& svg {
 		font-size: 2rem;

@@ -67,9 +67,9 @@ export const Modal = styled.div`
 	height: 50vh;
 	position: relative;
 	padding: 1.5rem;
-	width: 100%;
+	width: 90%;
 	max-width: 540px;
-	background: white;
+	background: var(--white);
 	box-shadow: 0 0 0.8rem var(--pink);
 	display: flex;
 	flex-direction: column;

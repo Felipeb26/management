@@ -1,4 +1,4 @@
-import { Modal, Popup, ButtonDiv, Button } from "./style/styled.popup";
+import { Button, ButtonDiv, Modal, Popup } from "./style/styled.popup";
 interface Props {
 	open: boolean;
 	chooseState: (value: boolean) => unknown;
@@ -13,10 +13,10 @@ const ModalComponent = (props: Props) => {
 				<Modal>
 					<ButtonDiv>
 						<Button onClick={() => props.chooseState(!props.open)}>
-							{props.btn_children}
+							{props.btn_children || "x"}
 						</Button>
 					</ButtonDiv>
-                    {props.children}
+					{props.children}
 				</Modal>
 			</Popup>
 		</>

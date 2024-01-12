@@ -1,10 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import HeaderComponent from "./components/header";
+import { RouterProvider } from "react-router-dom";
+import Router from "./routes/routes";
 
 function App() {
 	return (
 		<>
-			<HeaderComponent />
+			<RouterProvider router={Router} />
 		</>
 	);
 }

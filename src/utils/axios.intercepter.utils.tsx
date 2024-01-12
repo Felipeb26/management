@@ -10,20 +10,12 @@ export const EmployeeInstance: AxiosInstance = axios.create({
 	timeout: 30000,
 });
 
-export const Response = (
-	setShow: React.Dispatch<React.SetStateAction<boolean>>
-) => {
+export const Response = () => {
 	EmployeeInstance.interceptors.response.use(
 		(response: AxiosResponse) => {
-			setShow(true);
-			console.log("Response Interceptor:", "begin");
-			setTimeout(() => {}, 15000);
-			console.log("Response Interceptor:", response);
-			setShow(false);
 			return response;
 		},
 		(error) => {
-			setShow(false);
 			return Promise.reject(error);
 		}
 	);

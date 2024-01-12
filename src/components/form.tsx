@@ -33,7 +33,7 @@ export const CustomForm = (props: FormProps) => {
 				<Input
 					type="text"
 					id="name"
-					placeholder={data?.name}
+					placeholder={data?.name || "nome"}
 					autoComplete="given-name"
 					{...register("name")}
 				/>
@@ -43,7 +43,7 @@ export const CustomForm = (props: FormProps) => {
 				<Input
 					type="text"
 					id="sobrenome"
-					placeholder={data?.surname}
+					placeholder={data?.surname || "sobrenome"}
 					autoComplete="family-name"
 					{...register("surname")}
 				/>
@@ -53,7 +53,7 @@ export const CustomForm = (props: FormProps) => {
 				<Input
 					type="email"
 					id="email"
-					placeholder={data?.email}
+					placeholder={data?.email || "email"}
 					autoComplete="email"
 					{...register("email")}
 				/>
@@ -62,7 +62,9 @@ export const CustomForm = (props: FormProps) => {
 				<label htmlFor="nascimento">Nascimento:</label>
 				<Input
 					id="nascimento"
-					placeholder={formatStringToDate(data?.birth_date)}
+					placeholder={formatStringToDate(
+						data?.birth_date || "2000-01-01"
+					)}
 					type="date"
 					{...register("birth_date")}
 				/>
@@ -71,7 +73,7 @@ export const CustomForm = (props: FormProps) => {
 				<label>Departamento:</label>
 				<SelectContainer>
 					<Select {...register("department")}>
-						<option>{data?.department}</option>
+						<option>{data?.department || "department"}</option>
 						{departments
 							?.filter((it) => it.name !== data?.department)
 							.map((obj, id) => {

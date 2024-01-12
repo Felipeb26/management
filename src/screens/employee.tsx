@@ -3,13 +3,11 @@ import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { CustomForm } from "../components/form";
-import HeaderComponent from "../components/header";
 import Loading from "../components/loading";
-import { AlignItens, Card } from "../components/style/styled";
+import { AlignItens, Card, H1 } from "../components/style/styled";
 import { EmployeeBuild, EmployeeModel } from "../model/employee.model";
 import { findEmployeeById, updateEmployee } from "../utils/axios.requests.util";
 import { Optional } from "../utils/objects";
-import { H1 } from "../components/style/styled";
 
 export default function EmployeeComponent() {
 	const { id } = useParams();
@@ -24,7 +22,6 @@ export default function EmployeeComponent() {
 	return (
 		<>
 			<Loading show={isLoading} />
-			<HeaderComponent />
 			{data && (
 				<>
 					<AlignItens style={style_body}>
@@ -115,5 +112,6 @@ function RequestUpdate(_id: string, data: any, value: EmployeeModel) {
 function formatDate(value: string): string {
 	const values = value.split("-");
 	const [year, month, day] = values;
+	console.log(values);
 	return `${day}/${month}/${year}`;
 }

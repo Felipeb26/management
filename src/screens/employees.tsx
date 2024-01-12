@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-hooks/rules-of-hooks */
 import { useQuery } from "@tanstack/react-query";
+import { AxiosError } from "axios";
 import { useState } from "react";
 import { FaPlus } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { CustomButton } from "../components/button";
 import { CustomForm } from "../components/form";
-import HeaderComponent from "../components/header";
 import Loading from "../components/loading";
 import ModalComponent from "../components/modal";
 import PopUp from "../components/popup";
@@ -19,6 +19,7 @@ import {
 	SpaceAroundDiv,
 } from "../components/style/styled";
 import { Each } from "../hooks/each";
+import { ErrorModel } from "../model/error.model";
 import { Props } from "../model/function.props";
 import {
 	deleteEmployee,
@@ -71,15 +72,18 @@ export default function EmployeesComponent() {
 				setOpenModal(false);
 				toast.success(`usuario ${data.name} salvo com sucesso`);
 			})
-			.catch((err: Error) => toast.error(err.message));
+			.catch((err: AxiosError) => {
+				const errModel: ErrorModel = JSON.parse(err.request.response);
+				console.log(errModel);
+				toast.error(errModel.error);
+			});
 	};
 
 	return (
 		<>
 			<Loading show={isLoading} />
-			<HeaderComponent />
 			<CustomButton
-				style={{ margin: "0 0 0 3rem" }}
+				style={{ margin: "0 0 1rem 3rem" }}
 				func={() => setOpenModal(!openModal)}
 			>
 				<FaPlus />
@@ -88,7 +92,6 @@ export default function EmployeesComponent() {
 				<CustomForm onSubmit={handleClick} />
 			</ModalComponent>
 			<BodyCards>
-				{error && toast(error.message)}
 				<Each
 					of={employees}
 					render={(value, index) => (

@@ -5,6 +5,7 @@ import { IoCloseSharp } from "react-icons/io5";
 import { NavLink, Outlet } from "react-router-dom";
 import { ToastItem, toast } from "react-toastify";
 import logo from "../assets/logo.png";
+import { IoPeopleSharp } from "react-icons/io5";
 import {
 	H1,
 	Hamburguer,
@@ -12,7 +13,7 @@ import {
 	Img,
 	Li,
 	Nav,
-	Ul
+	Ul,
 } from "../components/style/styled.header";
 import "../styles/header.scss";
 
@@ -50,7 +51,7 @@ export default function HeaderComponent() {
 		<>
 			{startTheme()}
 			<Header>
-				<NavLink to="/">
+				<NavLink to="/management/">
 					<Img src={logo} alt="imagem logo" />
 				</NavLink>
 				<H1>management</H1>
@@ -79,13 +80,17 @@ export default function HeaderComponent() {
 						<div>
 							<ul>
 								<Li>
-									<NavLink to="/">login</NavLink>
+									<NavLink to="/management/">login</NavLink>
 								</Li>
 								<Li>
-									<NavLink to="/employees">employees</NavLink>
+									<NavLink to="/management/employees">
+										employees <IoPeopleSharp />
+									</NavLink>
 								</Li>
 								<Li>
-									<NavLink to="/contato">contato</NavLink>
+									<NavLink to="/management/contato">
+										contato
+									</NavLink>
 								</Li>
 								<Li>
 									<NavLink to="#">about</NavLink>
@@ -97,6 +102,8 @@ export default function HeaderComponent() {
 											toggleTheme();
 										}}
 									>
+										{theme && "light"}
+										{!theme && "dark"}
 										{theme && sun}
 										{!theme && moon}
 									</span>
@@ -108,13 +115,15 @@ export default function HeaderComponent() {
 				<Nav>
 					<Ul>
 						<Li>
-							<NavLink to="/">login</NavLink>
+							<NavLink to="/management/">login</NavLink>
 						</Li>
 						<Li>
-							<NavLink to="/employees">employees</NavLink>
+							<NavLink to="/management/employees">
+								employees
+							</NavLink>
 						</Li>
 						<Li>
-							<NavLink to="/contato">contato</NavLink>
+							<NavLink to="/management/contato">contato</NavLink>
 						</Li>
 						<Li>
 							<NavLink to="#">about</NavLink>

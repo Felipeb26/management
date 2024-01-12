@@ -62,7 +62,7 @@ export const Ul = styled.ul`
 `;
 
 export const Li = styled.li`
-	text-transform: capitalize;
+	text-transform: lowercase;
 	font-size: 0.9rem;
 	text-align: center;
 	flex: 1;
@@ -93,7 +93,9 @@ export const Li = styled.li`
 	}
 	& span {
 		cursor: pointer;
-		border-radius: 50%;
+		border-radius: 0.3rem;
+		display: flex;
+		align-items: center;
 	}
 
 	& svg {

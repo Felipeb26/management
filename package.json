@@ -11,7 +11,9 @@
 		"lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
 		"preview": "vite preview",
 		"predeploy": "pnpm build",
-		"deploy": "gh-pages -d dist"
+		"deploy": "gh-pages -d dist",
+		"save": "git add . && git commit -am.  && git push",
+		"fast:deploy": "pnpm build && pnpm run deploy"
 	},
 	"dependencies": {
 		"@tanstack/react-query": "^5.17.1",

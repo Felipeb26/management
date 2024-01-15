@@ -14,11 +14,11 @@ export const Button = styled.button`
 	background: var(--pink);
 
 	&:hover {
-		box-shadow: 0 0 0.8rem 0.1rem var(--blue);
+		box-shadow: 0 0 0.3rem 0.1rem var(--cyan);
 	}
 
 
 	&:active {
-		box-shadow: 0 0 0.8rem 0.1rem var(--blue);
+		box-shadow: 0 0 0.8rem var(--cyan);
 	}
 `;

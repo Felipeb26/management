@@ -52,6 +52,22 @@ export const AlignItens = styled.div`
 		text-transform: capitalize;
 	}
 `;
+export const AlignItensCol = styled.div`
+	display: flex;
+	flex-wrap: wrap;
+	flex-direction: column;
+	min-width: 100%;
+	color: var(--black);
+	justify-content: space-between;
+	& span {
+		text-transform: capitalize;
+		text-decoration: underline;
+		color: var(--red);
+		text-align: start;
+		font-weight: 500;
+		font-size: 0.8rem;
+	}
+`;
 
 export const Input = styled.input`
 	outline: none;

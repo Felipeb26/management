@@ -4,8 +4,10 @@ import { FaRegMoon, FaRegSun } from "react-icons/fa";
 import { IoCloseSharp } from "react-icons/io5";
 import { NavLink, Outlet } from "react-router-dom";
 import { ToastItem, toast } from "react-toastify";
+import { CiSquareQuestion } from "react-icons/ci";
 import logo from "../assets/logo.png";
 import { IoPeopleSharp } from "react-icons/io5";
+import { MdPeopleAlt } from "react-icons/md";
 import {
 	H1,
 	Hamburguer,
@@ -70,7 +72,7 @@ export default function HeaderComponent() {
 						<span
 							onClick={() => {
 								setMenuOpen(!menuOpen);
-								setStyle({ top: "5rem", padding: "0 0.5rem" });
+								setStyle({ top: "6rem", padding: "0 0.5rem" });
 							}}
 						>
 							<CiMenuBurger />
@@ -81,19 +83,19 @@ export default function HeaderComponent() {
 							<ul>
 								<Li>
 									<NavLink to="/management/">login</NavLink>
+									<MdPeopleAlt />
 								</Li>
 								<Li>
 									<NavLink to="/management/employees">
-										employees <IoPeopleSharp />
+										employees
 									</NavLink>
+									<IoPeopleSharp />
 								</Li>
 								<Li>
-									<NavLink to="/management/contato">
-										contato
+									<NavLink to="/management/sobre">
+										about
 									</NavLink>
-								</Li>
-								<Li>
-									<NavLink to="#">about</NavLink>
+									<CiSquareQuestion />
 								</Li>
 								<Li>
 									<span
@@ -104,9 +106,9 @@ export default function HeaderComponent() {
 									>
 										{theme && "light"}
 										{!theme && "dark"}
-										{theme && sun}
-										{!theme && moon}
 									</span>
+									{theme && sun}
+									{!theme && moon}
 								</Li>
 							</ul>
 						</div>
@@ -123,10 +125,7 @@ export default function HeaderComponent() {
 							</NavLink>
 						</Li>
 						<Li>
-							<NavLink to="/management/contato">contato</NavLink>
-						</Li>
-						<Li>
-							<NavLink to="#">about</NavLink>
+							<NavLink to="/management/sobre">about</NavLink>
 						</Li>
 						<Li>
 							<span

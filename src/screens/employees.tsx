@@ -6,6 +6,7 @@ import { useState } from "react";
 import { FaPlus } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { z } from "zod";
 import { CustomButton } from "../components/button";
 import { CustomForm } from "../components/form";
 import Loading from "../components/loading";
@@ -26,6 +27,19 @@ import {
 	findAllEmployee,
 	saveEmployee,
 } from "../utils/axios.requests.util";
+
+
+const userSchema = z.object({
+	name: z.string().min(10, "nome obrigatorio").trim(),
+	surname: z.string().min(10, "sobrenome obrigatorio").trim(),
+	email: z
+		.string()
+		.min(10, "email obrigatorio")
+		.email("formato do email não está valido")
+		.trim(),
+	birth_date: z.string().min(10, "data de nascimento obrigatorio").trim(),
+	department: z.string().min(10, "departamento obrigatorio").trim(),
+});
 
 export default function EmployeesComponent() {
 	const navigate = useNavigate();
@@ -74,7 +88,6 @@ export default function EmployeesComponent() {
 			})
 			.catch((err: AxiosError) => {
 				const errModel: ErrorModel = JSON.parse(err.request.response);
-				console.log(errModel);
 				toast.error(errModel.error);
 			});
 	};
@@ -89,7 +102,7 @@ export default function EmployeesComponent() {
 				<FaPlus />
 			</CustomButton>
 			<ModalComponent open={openModal} chooseState={setOpenModal}>
-				<CustomForm onSubmit={handleClick} />
+				<CustomForm onSubmit={handleClick} userSchema={userSchema} />
 			</ModalComponent>
 			<BodyCards>
 				<Each
@@ -134,7 +147,9 @@ export default function EmployeesComponent() {
 								<CustomButton
 									style={{ margin: "0 0.5rem", flex: 1 }}
 									func={() =>
-										navigate(`/employee/${value._id}`)
+										navigate(
+											`/management/employee/${value._id}`
+										)
 									}
 								>
 									editar

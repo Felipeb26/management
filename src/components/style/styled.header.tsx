@@ -104,8 +104,11 @@ export const Li = styled.li`
 		font-size: 1.5rem;
 		filter: drop-shadow(0 0 0.75rem var(--yellow));
 		transition: all ease-in-out 1s;
-		border-radius: 50%;
+		border-radius: 1rem;
+		height: 1.5rem;
+		width: 1.5rem;
 	}
+	
 	& svg:hover {
 		box-shadow: 0 0 1rem white, inset 0 0 1rem var(--yellow);
 		animation: ${animate} 2s infinite;
@@ -117,6 +120,7 @@ export const Hamburguer = styled.div`
 		display: none;
 	}
 
+	width: 20rem;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -129,16 +133,14 @@ export const Hamburguer = styled.div`
 	align-items: center;
 	transition: all ease-in-out 0.5s;
 
-	& span:hover {
-		padding: 0.1rem;
-		box-shadow: inset 0 0 0.5rem cyan;
-		filter: drop-shadow(0 0 1rem cyan);
-	}
 	& svg {
 		text-align: center;
 		font-size: 1.8rem;
 		cursor: pointer;
 		transition: all ease-in-out 0.5s;
+	}
+	& a{
+		text-align: center;
 	}
 
 	& ul {
@@ -146,6 +148,11 @@ export const Hamburguer = styled.div`
 	}
 
 	& li {
+		justify-content: space-around;
+		width: 100%;
+		display: flex;
+		flex-wrap: nowrap;
+		align-items: center;
 		text-align: start;
 		margin: 0.5rem 0;
 	}

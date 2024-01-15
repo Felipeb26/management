@@ -3,7 +3,7 @@ import {
 	createBrowserRouter,
 	createRoutesFromElements,
 } from "react-router-dom";
-import ContatosComponent from "../screens/contatos";
+import SobreComponent from "../screens/sobre";
 import EmployeeComponent from "../screens/employee";
 import EmployeesComponent from "../screens/employees";
 import ErrorScreen from "../screens/error.screen";
@@ -22,7 +22,7 @@ const Router = createBrowserRouter(
 				path="/management/employees"
 				element={<EmployeesComponent />}
 			/>
-			<Route path="/management/contato" element={<ContatosComponent />} />
+			<Route path="/management/sobre" element={<SobreComponent />} />
 			<Route path="*" element={<ErrorScreen />} />
 		</Route>
 	)

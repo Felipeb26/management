@@ -36,8 +36,14 @@
     --red: #ff3048;
     --pink: #010a1c;
     --cyan: rgb(0, 255, 255);
-    --white: rgba(37, 37, 37, 0.897);
+    --white: #020e25e3;
     --yellow: rgb(255, 255, 50);
     
     --blueT: #010a1c;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+    font-size: 1.2rem;
+    cursor: pointer;
 }

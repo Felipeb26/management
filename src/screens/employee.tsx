@@ -2,12 +2,21 @@
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
+import { z } from "zod";
 import { CustomForm } from "../components/form";
 import Loading from "../components/loading";
 import { AlignItens, Card, H1 } from "../components/style/styled";
 import { EmployeeBuild, EmployeeModel } from "../model/employee.model";
 import { findEmployeeById, updateEmployee } from "../utils/axios.requests.util";
 import { Optional } from "../utils/objects";
+
+const userSchema = z.object({
+	name: z.string().trim(),
+	surname: z.string().trim(),
+	email: z.string().trim(),
+	birth_date: z.string().trim(),
+	department: z.string().trim(),
+});
 
 export default function EmployeeComponent() {
 	const { id } = useParams();
@@ -31,6 +40,7 @@ export default function EmployeeComponent() {
 								onSubmit={RequestUpdate}
 								style_card={style_align_card}
 								updateForm={true}
+								userSchema={userSchema}
 							/>
 						</Card>
 						<Card
@@ -79,7 +89,7 @@ const style_card: React.CSSProperties = {
 	width: "45%",
 	margin: "0.5rem 1.5rem",
 	minWidth: "350px",
-	height: "25rem",
+	height: "27.5rem",
 	minHeight: "10rem",
 };
 const style_body: React.CSSProperties = {
@@ -98,20 +108,16 @@ function RequestUpdate(_id: string, data: any, value: EmployeeModel) {
 		create_at: Optional(data.create_at, value.create_at),
 		update_at: Optional(data.update_at, value.update_at),
 	});
-	console.log(body);
-	console.log(value);
 	updateEmployee(_id, body)
 		.then(() =>
 			toast.success(`Usuario ${body.name} atualizado com sucesso`)
 		)
-		.catch((err: Error) => {
-			console.log(err);
-		});
+		.catch((err: Error) => toast.error(err.message));
 }
 
 function formatDate(value: string): string {
+	if (value.indexOf("-") <= 0) return value;
 	const values = value.split("-");
 	const [year, month, day] = values;
-	console.log(values);
 	return `${day}/${month}/${year}`;
 }

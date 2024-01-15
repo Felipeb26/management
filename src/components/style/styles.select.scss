@@ -1,0 +1,9 @@
+.high:hover{
+    background: var(--pinkT);
+    filter: brightness(1.7);
+    border-radius: 0.3rem;
+}
+.normal:hover{
+    filter: brightness(1);
+    border-radius: 0.3rem;
+}
